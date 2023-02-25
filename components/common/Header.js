@@ -14,7 +14,9 @@ import classNames from "@/utils/classNames";
 const logoUrl = "https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg";
 const navigation = {
   categories: [],
-  pages: [{ name: "DemoPage", href: "/demo" }],
+  pages: [
+    { name: "DemoPage", href: "/demo" },
+  { name: "weraygera", href: "/gewe" },],
 };
 
 
