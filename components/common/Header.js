@@ -10,7 +10,7 @@ import classNames from "@/utils/classNames";
 
 
 //HEADER SETUP
-const logoUrl = "https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg";
+const logoUrl = "/logo.png";
 const navigation = {
   categories: [],
   pages: [
