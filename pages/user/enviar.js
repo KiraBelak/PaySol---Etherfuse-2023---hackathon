@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 import { getUsers } from "@/lib/user";
 
 export default function Users() {
-  const { user, token } = useMirrorWorld();
+  const { user, token,transferSOL } = useMirrorWorld();
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-
+  const [soles, setSoles] = useState(0);
   useEffect(() => {
     async function fetchData() {
       try {
@@ -73,10 +73,31 @@ export default function Users() {
                       {user.email}
                     </td>
                     <td>
-                        
+                    <input
+    type="number"
+    value={soles}
+    onChange={(e) => setSoles(parseInt(e.target.value))}
+    className="w-16 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+  />
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold h-full py-2 px-4 rounded"
   onClick={() => {
-    transferSOL(user.email, 100); // Transferir 100 SOL al usuario actual
+    try{
+        const res =transferSOL(user.address, soles); // Transferir 100 SOL al usuario actual
+        
+          res.then(resultado => {
+            console.log("res",resultado); // aquí puede acceder al resultado de la promesa
+           console.log("Transferencia completada");
+          }).catch(error => {
+            console.log("Error al transferir");
+            console.log(error); // aquí puede manejar cualquier error que se haya producido durante la ejecución de la promesa
+          });
+        
+            console.log(res); // Verificar la respuesta de la función
+            
+        }
+        catch(error){
+            console.log(error);
+        }
   }}
 >
   Transferir
