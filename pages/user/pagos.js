@@ -29,7 +29,7 @@ export default function  Pagitos () {
   
     const handleSubmit = (event) => {
       event.preventDefault();
-      const qrCodeContent = `{{"sol": "${user.wallet.sol_address}","amount": ${amount}}}`;
+      const qrCodeContent = `{"sol": "${user.wallet.sol_address}","amount": ${amount}}`;
       console.log(name, amount);
       setQRCodeImage(qrCodeContent);
     };
