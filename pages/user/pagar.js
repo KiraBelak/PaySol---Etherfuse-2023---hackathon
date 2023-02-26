@@ -1,21 +1,38 @@
 import { useMirrorWorld } from "@/lib/useMirrorWorld";
 import MainLayout from "@/components/layouts/MainLayout";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import QrReaderComponent from "@/components/QrReaderComponent";
 import QrScanner from "react-qr-scanner";
 
 export default function Pagar() {
   const [qrData, setQrData] = useState(null);
+  const [camera, setCamera] = useState("environment");
   const [facingMode, setFacingMode] = useState('environment');
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    initStream();
+  }, [camera]);
+
+  const initStream = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: camera }
+      });
+      videoRef.current.srcObject = stream;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleScan = (data) => {
     setQrData(data);
     console.log(data);
   };
 
-  const switchCamera = () => {
-    setFacingMode(facingMode === 'user' ? 'environment' : 'user');
-  }
+  const handleCameraChange = () => {
+    setCamera(camera === "user" ? "environment" : "user");
+  };
 
   return (
     <MainLayout>
@@ -35,7 +52,7 @@ export default function Pagar() {
           <button onClick={() => setQrData(null)}>Escanear de nuevo</button>
         </div>
       )}
-      <button onClick={switchCamera}>Cambiar cámara</button>
+      <button onClick={handleCameraChange}>Cambiar cámara</button>
     </MainLayout>
   );
 }
