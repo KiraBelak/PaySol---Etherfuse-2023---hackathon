@@ -15,13 +15,14 @@ export default function Pagar() {
   }, [camera]);
 
   const initStream = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: camera }
-      });
-      videoRef.current.srcObject = stream;
-    } catch (error) {
-      console.log(error);
+    if (videoRef.current) { // Verifica que videoRef no sea null
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: camera } });
+        videoRef.current.srcObject = stream;
+        setStreamInitialized(true);
+      } catch (e) {
+        console.error(e);
+      }
     }
   };
 
@@ -32,6 +33,8 @@ export default function Pagar() {
 
   const handleCameraChange = () => {
     setCamera(camera === "user" ? "environment" : "user");
+    setFacingMode(facingMode === 'user' ? 'environment' : 'user');
+    console.log(camera);
   };
 
   return (
