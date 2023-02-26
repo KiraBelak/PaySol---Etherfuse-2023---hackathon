@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
     
 
 export default function Caracas() {
-    const { user, token } = useMirrorWorld();
+    const { user, token,fetchUser } = useMirrorWorld();
     const [soles, setSoles] = useState(0);
   
     useEffect(() => {
@@ -16,9 +16,11 @@ export default function Caracas() {
       async function fetchData() {
         const soles = await token();
         setSoles(soles);
+        const user = await fetchUser();
+        console.log(user);
       }
       fetchData();
-    }, [user, token]);
+    }, [user, token, fetchUser]);
   
     if (user == null) {
       return (
