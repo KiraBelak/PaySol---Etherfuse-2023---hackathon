@@ -35,6 +35,7 @@ export default function Pagar() {
     setCamera(camera === "user" ? "environment" : "user");
     setFacingMode(facingMode === 'user' ? 'environment' : 'user');
     console.log(camera);
+    
   };
 
   return (
@@ -45,7 +46,6 @@ export default function Pagar() {
           delay={300}
           onError={(err) => console.log(err)}
           onScan={handleScan}
-          facingMode={facingMode}
           style={{ height: "100%", width: "100%" }}
         />
       )}
