@@ -11,8 +11,8 @@ import QRCode from 'qrcode.react';
 
 
 
-export default function  pagitos () {
-   const { user, mirrorworld,token} = useMirrorWorld();
+export default function  Pagitos () {
+   const { user} = useMirrorWorld();
    const [qrCodeImage, setQRCodeImage] = useState(null);
 
    

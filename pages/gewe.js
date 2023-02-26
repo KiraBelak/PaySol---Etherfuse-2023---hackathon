@@ -1,5 +1,5 @@
 import MainLayout from "@/components/layouts/MainLayout";
-export default function() {
+export default function Gewe() {
     // logica
     return (
             <MainLayout>

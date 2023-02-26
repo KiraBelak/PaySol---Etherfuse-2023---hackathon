@@ -9,7 +9,7 @@ import MainLayout from "@/components/layouts/MainLayout";
 import { useState } from "react";
 import QrReaderComponent from "@/components/QrReaderComponent";
 
-export default function qr() {
+export default function Qr() {
   const [qrData, setQrData] = useState(null);
 
   const handleScan = (data) => {
