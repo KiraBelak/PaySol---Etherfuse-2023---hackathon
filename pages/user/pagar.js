@@ -4,6 +4,7 @@
 // import { useEffect, useState } from "react";
 // import MainLayout from "@/components/layouts/MainLayout";
 
+
 import { useMirrorWorld } from "@/lib/useMirrorWorld";
 import MainLayout from "@/components/layouts/MainLayout";
 import { useState } from "react";
@@ -16,11 +17,15 @@ export default function Pagar() {
     setQrData(data);
     console.log(data);
   };
+  
+  const handleError = (error) => {
+    console.error(error);
+  };
 
   return (
     <MainLayout>
       <h1>Escanea un código QR</h1>
-      {typeof window !== 'undefined' && !qrData && <QrReaderComponent onScan={handleScan} />}
+      {!qrData && <QrReaderComponent onScan={handleScan} onError={handleError} facingMode={"environment"} />}
       {qrData && (
         <div>
           <p>{qrData}</p>
