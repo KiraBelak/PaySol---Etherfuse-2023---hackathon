@@ -19,7 +19,6 @@ const QrReaderComponent = ({ onScan }) => {
         previewStyle={{ width: "100%" }}
         ref={previewRef}
       />
-      <button onClick={handleToggleCamera}>Cambiar Cámara</button>
     </>
   );
 };
