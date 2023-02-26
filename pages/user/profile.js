@@ -19,6 +19,7 @@ export default function  caracas () {
           </MainLayout>
         );
       }else{
+        console.log(user)
         const [soles, setSoles] = useState(0);
 
   useEffect(() => {
