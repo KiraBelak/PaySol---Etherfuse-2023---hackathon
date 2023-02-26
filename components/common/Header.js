@@ -21,7 +21,13 @@ const navigation = {
 
 
 const Header = () => {
-  const { user, login } = useMirrorWorld();
+  const { user, login,logout} = useMirrorWorld();
+  function handleLogout() {
+    logout().then(() => {
+      // Redirigir a la página de inicio de sesión u otra página de tu elección
+      window.location.href = '/';
+    });
+  }
   return (
     <Popover className="relative bg-white">
       <div
@@ -107,9 +113,12 @@ const Header = () => {
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700 cursor-pointer"
                             )}
-                            onClick={() => signOut()}
+                            onClick={handleLogout}
                           >
-                            Salir
+                           
+
+                            Salir ya
+                           
                           </div>
                         )}
                       </Menu.Item>
