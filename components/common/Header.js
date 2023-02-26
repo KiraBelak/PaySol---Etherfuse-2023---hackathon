@@ -9,15 +9,16 @@ import classNames from "@/utils/classNames";
 
 
 
-
 //HEADER SETUP
 const logoUrl = "https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg";
 const navigation = {
   categories: [],
   pages: [
     { name: "DemoPage", href: "/demo" },
+    { name: "Amigos", href: "/amigos" },
   ],
 };
+
 
 
 const Header = () => {
@@ -26,6 +27,13 @@ const Header = () => {
     logout().then(() => {
       // Redirigir a la página de inicio de sesión u otra página de tu elección
       window.location.href = '/';
+    });
+  }
+  function handleLogin(){
+    login().then(() => {
+      // Redirigir a la página de inicio de sesión u otra página de tu elección
+      window.location.href = '/';
+
     });
   }
   return (
@@ -150,6 +158,20 @@ const Header = () => {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
+                          <Link href="/user/enviar">
+                            <a
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Enviar dinero
+                            </a>
+                          </Link>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
                           <div
                             className={classNames(
                               active ? "bg-gray-100" : "",
@@ -251,6 +273,7 @@ const Header = () => {
                           </Link>
                         )}
                       </Menu.Item>
+                      
                       <Menu.Item>
                         {({ active }) => (
                           <Link href="/user/pagar">
@@ -289,6 +312,20 @@ const Header = () => {
                               )}
                             >
                               Grupos
+                            </a>
+                          </Link>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link href="/user/enviar">
+                            <a
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Enviar dinero
                             </a>
                           </Link>
                         )}
