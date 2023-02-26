@@ -1,13 +1,16 @@
-import MainLayout from "@/components/layouts/MainLayout";
-export default function Gewe() {
-    // logica
+import { useEffect, useState } from "react";
+
+function User(props) {
+    const { nombre, address } = props;
+  
     return (
-            <MainLayout>
-
-        <div>
-            Enter your code here
-        </div>
-
-            </MainLayout>
+      <div className="flex justify-center flex-row">
+        <h2 className="">{nombre}</h2>
+        <br />
+        <p>Tu cartera: {address}</p>
+        
+      </div>
     );
-}
+  }
+  
+  export default User;

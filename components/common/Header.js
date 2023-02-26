@@ -108,7 +108,7 @@ const Header = () => {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <Link href="/user/qr">
+                          <Link href="/user/pagar">
                             <a
                               className={classNames(
                                 active ? "bg-gray-100" : "",

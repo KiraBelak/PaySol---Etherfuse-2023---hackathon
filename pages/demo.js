@@ -1,10 +1,7 @@
 import MainLayout from "@/components/layouts/MainLayout";
 // import { MirrorWorld, ClusterEnvironment } from "@mirrorworld/web3.js"
-import User from "../components/User";
-import { useState } from "react";
-import nc from "next-connect";
 import clientPromise from "@/lib/mongodb";
-import { useMirrorWorld } from "../lib/useMirrorWorld";
+
 // import ncoptions from "@/config/ncoptions";
 // const handler = nc(ncoptions); //middleware next conect handler
 
