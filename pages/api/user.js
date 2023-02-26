@@ -23,14 +23,20 @@ export default async function handler(req, res) {
       break;
     case "GET":
         const users = await db
-        .collection("users")
-        .aggregate([
-          { $group: { _id: "$email", username: { $first: "$username" } } },
-          { $project: { _id: 0, email: "$_id", username: 1 } },
-        ])
-        .toArray();
-      res.status(200).json(users);
-      break;
+    .collection("users")
+    .aggregate([
+      {
+        $group: {
+          _id: "$email",
+          username: { $first: "$username" },
+          address: { $first: "$address" }
+        }
+      },
+      { $project: { _id: 0, email: "$_id", username: 1, address: 1 } }
+    ])
+    .toArray();
+  res.status(200).json(users);
+  break;
 
 
     default:

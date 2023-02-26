@@ -73,7 +73,14 @@ export default function Users() {
                       {user.email}
                     </td>
                     <td>
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold h-full py-2 px-4 rounded"/>
+                        
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold h-full py-2 px-4 rounded"
+  onClick={() => {
+    transferSOL(user.email, 100); // Transferir 100 SOL al usuario actual
+  }}
+>
+  Transferir
+</button>
                     </td>
                   </tr>
                 ))}
