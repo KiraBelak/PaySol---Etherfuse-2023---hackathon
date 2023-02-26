@@ -26,6 +26,7 @@ const QrReaderComponent = () => {
         style={previewStyle}
         onError={handleError}
         onScan={handleScan}
+        facingMode={"environment"}
       />
       {qrCode && <p>El código QR leído es: {qrCode}</p>}
     </div>
