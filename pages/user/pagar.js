@@ -28,24 +28,51 @@ export default function Pagar() {
     const handleError = (error) => {
       console.error(error);
     };
+
+    async function peticion (data) {
+      try{
+      const res = transferSOL(data.sol.toString(), data.amount)
+      .catch((error) => {
+        console.error(error);
+      });
+      if (res) {
+        console.log("Transferencia completada");
+      }
+    
+        console.log(data);
+    
+        console.log(res); // Verificar la respuesta de la función
+    
+        toast.success("Código escaneado");
+    } catch (error) {
+      console.log(error);
+      toast.error("Error al escanear el código");
+    }
+        if (qrData === "cancel") {
+          setQrData(null); // Si se canceló, reiniciar el estado
+          return;
+        }
+      };
+
   
     const handleScan = async (data) => {
       if (data) {
         const json = JSON.parse(data.text);
-        console.log(json);
-        const res = await transferSOL(json.sol.toString(), json.amount);
-        toast.success("Código escaneado");
-        console.log("Transferencia completada");
+        peticion(json);
+        setQrData(json.amount);
+
+        
         
         // Esperar 5 segundos antes de escanear de nuevo
         setTimeout(() => {
           console.log("Escaneando de nuevo...");
-          qrScannerRef.current?.openImageDialog();
+          QrScanner.current?.openImageDialog();
         }, 5000);
       } else {
         console.log("No se ha escaneado nada");
       }
     };
+    
     
   
   const handleCameraChange = () => {
@@ -69,10 +96,11 @@ export default function Pagar() {
       )
       }
       {qrData && (
-        <div>
-          <p>{qrData}</p>
-          <button onClick={() => setQrData(null)}>Escanear de nuevo</button>
-        </div>
+       <div>
+       <p>{qrData}</p>
+       <button onClick={() => setQrData(null)}>Escanear de nuevo</button>
+       <button onClick={() => setQrData("cancel")}>Cancelar</button>
+     </div>
       )
       }
       <button onClick={handleCameraChange}>Cambiar cámara</button>
