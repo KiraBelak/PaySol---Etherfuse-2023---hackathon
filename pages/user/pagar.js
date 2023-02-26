@@ -10,7 +10,7 @@ export default function Pagar() {
   const constraints = {
     audio: false,
     video: true,
-    facingMode:"environment",
+    facingMode:{exact: facingMode},
   };
 
   // const handleScan = (data) => {
