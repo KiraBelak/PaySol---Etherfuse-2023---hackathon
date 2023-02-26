@@ -5,11 +5,10 @@ const QrReaderComponent = ({ onScan }) => {
   const [facingMode, setFacingMode] = useState("environment");
   const previewRef = useRef(null);
 
-  const handleFacingMode = () => {
-    const newFacingMode = facingMode === "user" ? "environment" : "user";
-    setFacingMode(newFacingMode);
-  };
 
+  const handleToggleCamera = () => {
+    setFacingMode(prev => (prev === 'user' ? 'environment' : 'user'));
+}
   return (
     <>
       <QrReader
@@ -20,7 +19,7 @@ const QrReaderComponent = ({ onScan }) => {
         previewStyle={{ width: "100%" }}
         ref={previewRef}
       />
-      <button onClick={handleFacingMode}>Cambiar Cámara</button>
+      <button onClick={handleToggleCamera}>Cambiar Cámara</button>
     </>
   );
 };
