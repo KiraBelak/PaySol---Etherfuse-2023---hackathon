@@ -1,37 +1,28 @@
-import React, { useState } from "react";
-import QrScanner from "react-qr-scanner";
+import { useState, useRef } from "react";
+import QrReader from "react-qr-scanner";
 
-const QrReaderComponent = () => {
-  const [qrCode, setQrCode] = useState("");
+const QrReaderComponent = ({ onScan }) => {
+  const [facingMode, setFacingMode] = useState("environment");
+  const previewRef = useRef(null);
 
-  const handleScan = (result) => {
-    if (result) {
-      setQrCode(result);
-    }
-  };
-
-  const handleError = (error) => {
-    console.error(error);
-  };
-
-  const previewStyle = {
-    height: 240,
-    width: 320,
+  const handleFacingMode = () => {
+    const newFacingMode = facingMode === "user" ? "environment" : "user";
+    setFacingMode(newFacingMode);
   };
 
   return (
-    <div>
-      <QrScanner
-        delay={300}
-        style={previewStyle}
-        onError={handleError}
-        onScan={handleScan}
-        facingMode={"environment"}
+    <>
+      <QrReader
+        facingMode={facingMode}
+        onError={console.error}
+        onScan={onScan}
+        style={{ width: "100%" }}
+        previewStyle={{ width: "100%" }}
+        ref={previewRef}
       />
-      {qrCode && <p>El código QR leído es: {qrCode}</p>}
-    </div>
+      <button onClick={handleFacingMode}>Cambiar Cámara</button>
+    </>
   );
 };
 
 export default QrReaderComponent;
-
