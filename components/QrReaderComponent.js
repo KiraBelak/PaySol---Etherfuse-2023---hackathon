@@ -12,7 +12,10 @@ const QrReaderComponent = ({ onScan }) => {
   return (
     <>
       <QrReader
-        facingMode={"environment"}
+       
+        constraints={{
+          facingMode: 'environment'
+      }}
         onError={console.error}
         onScan={onScan}
         style={{ width: "100%" }}
