@@ -7,6 +7,7 @@ import QrScanner from "react-qr-scanner";
 export default function Pagar() {
   const [qrData, setQrData] = useState(null);
   const [camera, setCamera] = useState("environment");
+
   const [facingMode, setFacingMode] = useState('environment');
   const videoRef = useRef(null);
 
@@ -15,14 +16,13 @@ export default function Pagar() {
   }, [camera]);
 
   const initStream = async () => {
-    if (videoRef.current) { // Verifica que videoRef no sea null
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: camera } });
-        videoRef.current.srcObject = stream;
-        setStreamInitialized(true);
-      } catch (e) {
-        console.error(e);
-      }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: camera }
+      });
+      videoRef.current.srcObject = stream;
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -33,9 +33,6 @@ export default function Pagar() {
 
   const handleCameraChange = () => {
     setCamera(camera === "user" ? "environment" : "user");
-    setFacingMode(facingMode === 'user' ? 'environment' : 'user');
-    console.log(camera);
-    
   };
 
   return (
@@ -44,8 +41,10 @@ export default function Pagar() {
       { typeof window !== 'undefined' && !qrData && !qrData && (
         <QrScanner
           delay={300}
+          constraints={{facingMode: 'environment'}}
           onError={(err) => console.log(err)}
           onScan={handleScan}
+
           style={{ height: "100%", width: "100%" }}
         />
       )}
