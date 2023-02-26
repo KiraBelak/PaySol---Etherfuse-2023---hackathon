@@ -30,6 +30,7 @@ export default function Pagar() {
     };
 
     async function peticion (data) {
+      toast.success("Código escaneado");
       try{
       const res = transferSOL(data.sol.toString(), data.amount)
       .catch((error) => {
@@ -39,15 +40,16 @@ export default function Pagar() {
         console.log("Transferencia completada");
       }
       res.then(resultado => {
-        console.log(resultado); // aquí puede acceder al resultado de la promesa
+        console.log("res",resultado); // aquí puede acceder al resultado de la promesa
+        toast.success("Transferencia completada");
       }).catch(error => {
+        toast.error("Error al transferir");
         console.log(error); // aquí puede manejar cualquier error que se haya producido durante la ejecución de la promesa
       });
         console.log(data);
     
         console.log(res); // Verificar la respuesta de la función
-    
-        toast.success("Código escaneado");
+        
     } catch (error) {
       console.log(error);
       toast.error("Error al escanear el código");

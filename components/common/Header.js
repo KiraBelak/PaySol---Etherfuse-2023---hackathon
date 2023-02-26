@@ -16,7 +16,7 @@ const navigation = {
   categories: [],
   pages: [
     { name: "DemoPage", href: "/demo" },
-  { name: "weraygera", href: "/gewe" },],
+  ],
 };
 
 

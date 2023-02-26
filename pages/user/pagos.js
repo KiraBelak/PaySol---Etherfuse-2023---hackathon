@@ -56,32 +56,45 @@ export default function  Pagitos () {
         return(
         <MainLayout>
            
-        <div className="flex justify-center flex-col  items-center h-full">
-        {!qrCodeImage?(
-        <form onSubmit={handleSubmit}>
-      <label>
-        Nombre:
-        <input type="text" value={name} onChange={handleNameChange} />
-      </label>
-      <br />
-      <label>
-        Cantidad:
-        <input type="text" value={amount} onChange={handleAmountChange} />
-      </label>
-      <br />
-      <button type="submit">Enviar</button>
+           <div className="flex justify-center flex-col items-center h-full">
+  {!qrCodeImage ? (
+    <form onSubmit={handleSubmit}>
+      <div className="flex flex-col mb-4">
+        <label htmlFor="name" className="text-2xl font-bold mb-2">
+          Nombre:
+        </label>
+        <input
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="name"
+          type="text"
+          value={name}
+          onChange={handleNameChange}
+        />
+      </div>
+      <div className="flex flex-col mb-4">
+        <label htmlFor="amount" className="text-2xl font-bold mb-2">
+          Cantidad:
+        </label>
+        <input
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="amount"
+          type="text"
+          value={amount}
+          onChange={handleAmountChange}
+        />
+      </div>
+      <button
+        type="submit"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+      >
+        Enviar
+      </button>
     </form>
-        ):(
-                  <QRCode value={qrCodeImage} size={256} />
+  ) : (
+    <QRCode value={qrCodeImage} size={256} />
+  )}
+</div>
 
-        )}
-
-{/* 
-            <h1 className="text-5xl">Pagos</h1>
-
-            <p className="text-3xl">Nombre: {user.username}</p>
-            <p className="text-3xl">Solana sol:{soles} </p> */}
-        </div>
         </MainLayout>
         )
       
