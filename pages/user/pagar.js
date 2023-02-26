@@ -38,7 +38,11 @@ export default function Pagar() {
       if (res) {
         console.log("Transferencia completada");
       }
-    
+      res.then(resultado => {
+        console.log(resultado); // aquí puede acceder al resultado de la promesa
+      }).catch(error => {
+        console.log(error); // aquí puede manejar cualquier error que se haya producido durante la ejecución de la promesa
+      });
         console.log(data);
     
         console.log(res); // Verificar la respuesta de la función
