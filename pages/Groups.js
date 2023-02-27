@@ -3,7 +3,7 @@ import { getGroup, addMemberToGroup } from "@/lib/groups";
 import { useMirrorWorld } from "@/lib/useMirrorWorld";
 import { useEffect, useState } from "react";
 import { getUsers } from "@/lib/user";
-
+const logoUrl = "/logo.png";
 export default function Home() {
   const [users, setUsers] = useState([]);
   const { user } = useMirrorWorld();
@@ -33,12 +33,16 @@ export default function Home() {
 
   return (
     <MainLayout>
-      <div className="content flex justify-center items-center w-full bg-[#DFD2C1]">
+      <div className="content flex justify-center items-center w-full bg-[#B7C0A5]">
         <div className="wrapper max-w-7xl">
           <h1 className="md:text-2x1 text-xl text-center text-gray-900 font-bold">
-            PaySol (adjunta logo) <br /> GRUPOS{" "}
+            PaySol 
+            </h1>
+            <div className="flex flex-col justify-center w-full items-center">
+            <img className="w-24" src={logoUrl} alt="" />
+            </div>
             <section className="text-gray-600 body-font ">
-              <div className="container px-10 py-24 mx-auto bg-[#DFD2C1]">
+              <div className="container px-10 py-12 mx-auto bg-[#B7C0A5]">
                 <div className="flex flex-wrap -m-3">
                   <div className="p-4 lg:w-1/3">
                     <div className="h-full bg-[#67D29E]  px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center relative">
@@ -106,15 +110,14 @@ export default function Home() {
                           className="text-white bg-[#3884CF]"
                         >
                          <option value={null}>Selecciona usuario</option>
-
                           {users.map((user,index) => (
-                            <option key={index} value="billing">{user.usernname}</option>
+                            <option key={index} className="text-white max-w-8" value="billing">{user.username}</option>
                           ))}
                         </select>
+                      </div>
                         <button onClick={handleAddMemberClick}>
                           añadir usuario
                         </button>
-                      </div>
                      </div>
                       <div className="text-center mt-2 leading-none flex justify-center absolute bottom-0 left-0 w-full py-4">
                         <span className="text-gray-400 mr-3 inline-flex items-center leading-none text-sm pr-3 py-1 border-r-2 border-gray-200"></span>
@@ -168,7 +171,7 @@ export default function Home() {
                 </div>
               </div>
             </section>
-          </h1>
+          
         </div>
       </div>
     </MainLayout>
