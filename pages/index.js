@@ -1,34 +1,69 @@
 import MainLayout from "@/components/layouts/MainLayout";
 
+import Image from 'next/image'
+import logo from '../public/logo.png'
+import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faWallet, faHandHoldingUsd, faCertificate } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function Home() {
   return (
     <MainLayout>
-      <div className="content flex justify-center items-center w-full my-16 bg-[#DFD2C1]">
-        <div className="wrapper max-w-7xl">
-          <h1 className="text-2xl text-center text-[#274790] font-bold">
-            PaySol owo <br /> Aqui todo comienza 
-            <section className="text-gray-600 body-font">
-      <div className="container px-5 py-24 mx-auto flex flex-wrap ">
-        <h2 className="sm:text-3xl text-2xl text-[#3884CF] font-medium title-font mb-2 md:w-2/5">GRUPOS</h2>
-        <div className="md:w-3/5 md:pl-6 bg-[#67D29E]">
-          <p className="leading-relaxed text-base ">Aqui podras vizualizar los grupos que has armado con tus amigos para salir y dividir sus cuentas,ademas de editar los grupos c;             !vamos a echarles un vistazo¡</p>
-          <div className="flex md:mt-4 mt-6">
-          <a href="../Groups"> <button className="inline-flex text-white bg-[#3884CF] border-0 py-1 px-4 focus:outline-none hover:bg-[#274790] rounded">Vamos a alla</button></a>
-          <a className="text-[#67D29E] inline-flex items-center ml-4">
-  <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 ml-2" viewBox="0 0 24 24">
-    <path d="M5 12h14M12 5l7 7-7 7"></path>
-  </svg>
-</a>
+     <div className="bg-gradient-to-r from-blue-400 to-purple-500 min-h-screen flex justify-center items-center">
+  <div className="max-w-full mx-auto px-8 py-12 text-center">
+    <div className="mb-8">
+      <Image src={logo} alt="Paysol logo" width={250} height={250} />
+      <h1 className="text-3xl font-bold text-white mt-4">Bienvenidos a Paysol</h1>
+    </div>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto px-4 py-12">
+  <div className="rounded-lg shadow-lg bg-white overflow-hidden">
+    <div className="px-6 py-4">
+      <div className="flex items-center mb-3">
+        <FontAwesomeIcon icon={faWallet} className="text-blue-500 mr-2 w-16 h-16" />
+        <h3 className="text-lg font-medium text-gray-900">Fácil de usar</h3>
+      </div>
+      <p className="text-gray-600 leading-relaxed">
+        Con Paysol, dividir la cuenta nunca ha sido tan fácil. Nuestra aplicación basada en la blockchain de Solana permite a los usuarios dividir los gastos de una salida con amigos y compartir los pagos de manera equitativa.
+      </p>
+    </div>
+    <div className="pb-4 px-6">
+      {/* contenido de la tarjeta */}
+    </div>
+  </div>
+  <div className="rounded-lg shadow-lg bg-white overflow-hidden">
+    <div className="px-6 py-4">
+      <div className="flex items-center mb-3">
+        <FontAwesomeIcon icon={faHandHoldingUsd} className="text-blue-500 mr-2 w-16 h-16" />
+        <h3 className="text-lg font-medium text-gray-900">Seguro y confiable</h3>
+      </div>
+      <p className="text-gray-600 leading-relaxed">
+        En Paysol, la seguridad es una de nuestras principales preocupaciones. Implementamos medidas de seguridad adecuadas para proteger las claves privadas de las wallets de los usuarios y estamos comprometidos con el cumplimiento de las leyes y regulaciones locales.
+      </p>
+    </div>
+    <div className="pb-4 px-6">
+      {/* contenido de la tarjeta */}
+    </div>
+  </div>
+  <div className="rounded-lg shadow-lg bg-white overflow-hidden">
+    <div className="px-6 py-4">
+      <div className="flex items-center mb-3">
+        <FontAwesomeIcon icon={faCertificate} className="text-blue-500 mr-2 w-16 h-16" />
+        <h3 className="text-lg font-medium text-gray-900">NFTs únicos</h3>
+      </div>
+      <p className="text-gray-600 leading-relaxed">
+        En Paysol, no solo nos preocupamos por la división de gastos justa, sino que también queremos que los usuarios tengan un registro visual de su experiencia compartida. Por eso, generamos NFTs únicos de cada salida que se pueden compartir en redes sociales y otros medios.
+      </p>
+    </div>
+    <div className="pb-4 px-6">
+      {/* contenido de la tarjeta */}
+    </div>
+  </div>
+</div>
 
-          </div>
-        </div>
-      </div>
-    </section>
-          </h1>
-        </div>
-      </div>
+  </div>
+</div>
+
     </MainLayout>
   );
 }

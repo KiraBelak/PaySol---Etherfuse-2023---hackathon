@@ -2,7 +2,7 @@ import MainLayout from "@/components/layouts/MainLayout";
 import { useMirrorWorld } from "@/lib/useMirrorWorld";
 import LoadingCircle from "@/components/common/LoadingCircle";
 import { useEffect, useState } from "react";
-import { addUser } from "@/lib/user";
+// import { addUser } from "@/lib/user";
 
 export default function Caracas() {
   const { user, token, fetchUser, Transaction } = useMirrorWorld();
@@ -17,12 +17,12 @@ export default function Caracas() {
       setSoles(soles);
       const user = await fetchUser();
       console.log(user);
-      const formData = {
-        username: user.username,
-        email: user.email,
-        address: user.wallet.sol_address,
-      };
-      await addUser(formData);
+      // const formData = {
+      //   username: user.username,
+      //   email: user.email,
+      //   address: user.wallet.sol_address,
+      // };
+      // await addUser(formData);
       
       const transactions = await Transaction();
       console.log(transactions);

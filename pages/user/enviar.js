@@ -47,7 +47,7 @@ export default function Users() {
 
   return (
     <MainLayout>
-    <div className="w-full flex flex-col items-center justify-center">
+    <div className="w-full flex flex-col items-center justify-center ">
       <h1 className="text-5xl font-bold mb-8">Usuarios</h1>
       <div className="w-full px-4">
         <div className="overflow-x-auto">
@@ -77,7 +77,7 @@ export default function Users() {
     type="number"
     value={soles}
     onChange={(e) => setSoles(parseInt(e.target.value))}
-    className="w-16 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+    className="py-2 px-4 w-32 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" 
   />
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold h-full py-2 px-4 rounded"
   onClick={() => {

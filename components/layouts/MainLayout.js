@@ -11,7 +11,7 @@ const Layout = ({ children, ...rest }) => {
 
       <div className="flex flex-col w-full" {...rest}>
         <Header />
-        <div className="my-0">{children}</div>
+        <div className="my-0 ">{children}</div>
         <Footer />
       </div>
     </>

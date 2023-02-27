@@ -14,11 +14,20 @@ export default async function handler(req, res) {
   const client = await MongoClient.connect(process.env.MONGODB_URI);
   const db = client.db();
     console.log("Connected to MongoDB");
-    console.log(body)
+    console.log(body.email)
   switch (method) {
     case "POST":
-        
+      const existingUser = await db.collection("users").findOne({ email: body.email.toString() });
+
+      if (existingUser) {
+        // Si el usuario ya existe, devolver un error 409 (conflicto)
+        return res.status(409).json({ message: "User already exists" });
+      }
+      
+      // Si el usuario no existe, insertar un nuevo documento
       const result = await db.collection("users").insertOne(body);
+      
+      // Devolver una respuesta adecuada
       res.status(201).json({ message: "User created successfully" });
       break;
     case "GET":
