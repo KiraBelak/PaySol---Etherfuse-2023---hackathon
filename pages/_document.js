@@ -1,4 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
+<link rel="manifest" href="/manifest.json" />
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
