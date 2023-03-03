@@ -9,6 +9,28 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
 
   useEffect(() => {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+  
+    if (isMobile && !isStandalone) {
+      // Mostrar botón de instalación
+      const banner = document.createElement('div');
+      banner.className = 'p-4 bg-white fixed bottom-0 left-0 w-full z-50';
+      banner.innerHTML = `
+        <p>Instala nuestra aplicación en tu dispositivo móvil:</p>
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+          onclick="prompt()"
+        >
+          Instalar
+        </button>
+      `;
+      document.body.appendChild(banner);
+    }
+  }, []);
+  
+
+  useEffect(() => {
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", function () {
         navigator.serviceWorker
@@ -30,24 +52,4 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp
-useEffect(() => {
-  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-  const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-
-  if (isMobile && !isStandalone) {
-    // Mostrar botón de instalación
-    const banner = document.createElement('div');
-    banner.className = 'p-4 bg-white fixed bottom-0 left-0 w-full z-50';
-    banner.innerHTML = `
-      <p>Instala nuestra aplicación en tu dispositivo móvil:</p>
-      <button
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-        onclick="prompt()"
-      >
-        Instalar
-      </button>
-    `;
-    document.body.appendChild(banner);
-  }
-}, []);
 
