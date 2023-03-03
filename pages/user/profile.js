@@ -52,13 +52,12 @@ export default function Caracas() {
 </div>
 <div className="flex flex-col justify-center items-center h-full">
   <h1 className="text-3xl font-bold mb-2">Transacciones realizadas</h1>
-  <ul className="divide-y divide-gray-300 w-full">
+  <ul className=" divide-gray-300 w-full">
     {transactions.map((item, index) => (
       <li key={index} className="py-2">
-        <div className="flex flex-col items-center max-w-full">
+        <div className="flex flex-col items-center max-w-screen">
           <div className="flex items-center justify-center mb-2">
-            <span className="text-red-700 font-bold mr-2">#{index
-+1}</span>
+            <span className="text-red-700 font-bold mr-2">#{index+1}</span>
           </div>
        
           <div className="flex items-center flex-col justify-center w-full">

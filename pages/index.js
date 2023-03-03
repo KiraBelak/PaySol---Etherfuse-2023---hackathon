@@ -10,11 +10,11 @@ import { faWallet, faHandHoldingUsd, faCertificate } from '@fortawesome/free-sol
 export default function Home() {
   return (
     <MainLayout>
-     <div className="bg-gradient-to-r from-blue-400 to-purple-500 min-h-screen flex justify-center items-center">
-  <div className="max-w-full mx-auto px-8 py-12 text-center">
-    <div className="mb-8">
+     <div className="min-h-screen flex justify-center items-center">
+  <div className="max-w-full mx-auto py-12 text-center">
+    <div className="mb-8 w-full">
       <Image src={logo} alt="Paysol logo" width={250} height={250} />
-      <h1 className="text-3xl font-bold text-white mt-4">Bienvenidos a Paysol</h1>
+      <h1 className="text-8xl left-0 font-bold text-white bg-black w-screen mt-4">Bienvenidos a Paysol</h1>
     </div>
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto px-4 py-12">
   <div className="rounded-lg shadow-lg bg-white overflow-hidden">

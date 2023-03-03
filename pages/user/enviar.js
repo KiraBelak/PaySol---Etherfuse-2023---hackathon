@@ -3,13 +3,19 @@ import { useMirrorWorld } from "@/lib/useMirrorWorld";
 import LoadingCircle from "@/components/common/LoadingCircle";
 import { useEffect, useState } from "react";
 import { getUsers } from "@/lib/user";
+import toast, { Toaster } from "react-hot-toast";
+import Router, { useRouter } from 'next/router';
+import { setTimeout } from "timers";
+
 
 export default function Users() {
-  const { user, token,transferSOL } = useMirrorWorld();
+  const { transferSOL } = useMirrorWorld();
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [soles, setSoles] = useState(0);
+  const [values, setValues] = useState({});
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -44,73 +50,77 @@ export default function Users() {
       </MainLayout>
     );
   }
+  const handleInputChange = (index, event) => {
+    const newValues = { ...values };
+    newValues[index] = event.target.value;
+    setValues(newValues);
+  };
 
   return (
     <MainLayout>
-    <div className="w-full flex flex-col items-center justify-center ">
-      <h1 className="text-5xl font-bold mb-8">Usuarios</h1>
-      <div className="w-full px-4">
-        <div className="overflow-x-auto">
-          <div className="min-w-full overflow-hidden rounded-lg shadow-xs">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Nombre de usuario
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Correo electrónico
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {users.map((user, index) => (
-                  <tr key={index}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      {user.username}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {user.email}
-                    </td>
-                    <td>
-                    <input
-    type="number"
-    value={soles}
-    onChange={(e) => setSoles(parseInt(e.target.value))}
-    className="py-2 px-4 w-32 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" 
-  />
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold h-full py-2 px-4 rounded"
-  onClick={() => {
-    try{
-        const res =transferSOL(user.address, soles); // Transferir 100 SOL al usuario actual
-        
-          res.then(resultado => {
-            console.log("res",resultado); // aquí puede acceder al resultado de la promesa
-           console.log("Transferencia completada");
-          }).catch(error => {
-            console.log("Error al transferir");
-            console.log(error); // aquí puede manejar cualquier error que se haya producido durante la ejecución de la promesa
-          });
-        
-            console.log(res); // Verificar la respuesta de la función
-            
-        }
-        catch(error){
-            console.log(error);
-        }
-  }}
->
-  Transferir
-</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+      <Toaster position="bottom-center"/>
+      <div className="w-full flex flex-col items-center justify-center ">
+        <h1 className="text-5xl font-bold mb-8">Usuarios</h1>
+        <div className="w-full px-4">
+          <div className="overflow-x-auto">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  {users.map((user, index) => (
+    <div key={index} className="overflow-hidden bg-white rounded-md shadow-md">
+      <div className="px-4 py-5 sm:p-6 flex flex-col justify-center items-center">
+        <h3 className="text-lg font-medium leading-6 text-gray-900">{user.username}</h3>
+        <div className="mt-2 max-w-xl text-sm text-gray-500">{user.email}</div>
+        <div className="mt-4">
+          <input
+            type="number"
+            value={values[index] || ''}
+            onChange={(e) => handleInputChange(index, e)}
+            className="shadow appearance-none border rounded w-32 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          />
+          <button
+            className="mt-2 ml-2 bg-blue-500 hover:bg-blue-700 text-white shadow-xl font-bold py-2 px-4 rounded"
+            onClick={() => {
+              try {
+                const res = transferSOL(user.address, parseInt(values[index])) // Transferir la cantidad de SOL ingresada en el input para esta fila
+                .catch((error) => {
+                  console.error(error);
+                  toast.error("Error al transferir");
+                })
+                if (res) {
+                  console.log("Transferencia en proceso");
+                }
+                res.then(resultado => {
+                  toast.dismiss();
+                  console.log("res",resultado); // aquí puede acceder al resultado de la promesa
+                  toast.success("Transferencia completada");
+                  //esperar 5 segundos y redireccionar
+                  setTimeout(() => {
+                  Router.push('/user/profile');
+                  }, 2000);
+
+                }).catch(error => {
+                  toast.error("Error al transferir");
+                  console.log(error); // aquí puede manejar cualquier error que se haya producido durante la ejecución de la promesa
+                });
+                  toast.loading("Transferencia en proceso...");
+              
+                  console.log(res); // Verificar la respuesta de la función
+                  
+              } catch (error) {
+                console.log(error);
+              }
+            }}
+          >
+            Transferir
+          </button>
         </div>
       </div>
     </div>
-  </MainLayout>
+  ))}
+</div>
+
+          </div>
+        </div>
+      </div>
+    </MainLayout>
   );
 }
