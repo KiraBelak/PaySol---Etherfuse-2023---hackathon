@@ -11,7 +11,7 @@ const Layout = ({ children, ...rest }) => {
 
       <div className="flex flex-col w-full" {...rest}>
         <Header />
-        <div className="my-0 bg-pattern">{children}</div>
+        <div className="my-0 w-min-screen bg-pattern">{children}</div>
         <Footer />
       </div>
     </>

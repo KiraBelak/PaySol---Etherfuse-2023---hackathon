@@ -9,10 +9,10 @@ import { faWallet, faHandHoldingUsd, faCertificate } from '@fortawesome/free-sol
 
 export default function Home() {
   return (
-    <MainLayout>
-     <div className="min-h-screen flex justify-center items-center">
-  <div className="max-w-full mx-auto py-12 text-center">
-    <div className="mb-8 w-full">
+    <MainLayout title="DemoPage" description="this is a demo page">
+     <div className="min-h-screen w-full flex justify-center items-center">
+  <div className="mx-auto py-12 text-center">
+    <div className="mb-8 min-w-screen">
       <Image src={logo} alt="Paysol logo" width={250} height={250} />
       <h1 className="text-8xl left-0 font-bold text-white bg-black w-screen mt-4">Bienvenidos a Paysol</h1>
     </div>
