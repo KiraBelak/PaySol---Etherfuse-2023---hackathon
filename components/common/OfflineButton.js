@@ -48,7 +48,7 @@ const OfflineButton = () => {
   };
 
   return (
-    <div className="promotionbanner bg-black w-full flex justify-center items-center text-black">
+    <div className="promotionbanner bg-pattern w-full flex justify-center items-center text-black">
       {showInstallButton && (
         <button
           className="bg-white px-2 py-1 rounded-md text-sm"
