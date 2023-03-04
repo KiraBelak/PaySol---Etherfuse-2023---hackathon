@@ -5,11 +5,13 @@ import logo from '../public/logo.png'
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWallet, faHandHoldingUsd, faCertificate } from '@fortawesome/free-solid-svg-icons'
+import OfflineButton from "@/components/common/OfflineButton";
 
 
 export default function Home() {
   return (
     <MainLayout title="DemoPage" description="this is a demo page">
+       <OfflineButton />
      <div className="min-h-screen w-full flex justify-center items-center">
   <div className="mx-auto py-12 text-center">
     <div className="mb-8 min-w-screen">
