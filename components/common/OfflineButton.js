@@ -20,7 +20,7 @@ const OfflineButton = () => {
       e.preventDefault();
       console.log("ready", e);
       setDeferredPrompt(e);
-      toast.loading("ready", e);
+      toast.success("ready", e);
       setShowInstallButton(true);
     };
 
