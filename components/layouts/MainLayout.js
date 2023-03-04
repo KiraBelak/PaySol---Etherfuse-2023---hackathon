@@ -4,7 +4,7 @@ import Footer from "@/components/common/Footer";
 import OfflineButton from "@/components/common/OfflineButton";
 import { Toaster } from "react-hot-toast";
 
-const Layout = ({ children,showBanner =false, ...rest }) => {
+const Layout = ({ children,showBanner = false, ...rest }) => {
   return (
     <>
       <Head>

@@ -1,8 +1,17 @@
 import { useState, useEffect } from "react";
+import { isIOS } from "react-device-detect";
+import Link from "next/link";
 
 const OfflineButton = () => {
   const [showInstallButton, setShowInstallButton] = useState(false);
+  const [showIosButton, setShowIosButton] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState(null);
+
+  useEffect(() => {
+    if (isIOS) {
+      setShowIosButton(true);
+    }
+  }, []);
 
   useEffect(() => {
     const ready = (e) => {
@@ -39,11 +48,19 @@ const OfflineButton = () => {
     <div className="promotionbanner bg-white w-full flex justify-center items-center text-white py-8">
       {showInstallButton && (
         <button
-          className="bg-black text-white px-2 py-1 rounded-md text-sm"
+          className="bg-dynamo-blue px-2 py-1 rounded-md text-sm"
           onClick={() => installApp()}
         >
           Instalar para uso offline.
         </button>
+      )}
+
+      {showIosButton && (
+        <Link href="/ios">
+          <a className="bg-dynamo-blue px-2 py-1 rounded-md text-sm">
+            Instalar para uso offline IOS
+          </a>
+        </Link>
       )}
     </div>
   );
