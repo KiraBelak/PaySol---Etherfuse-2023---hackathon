@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
-// import OfflineButton from "@/components/common/OfflineButton";
+import OfflineButton from "@/components/common/OfflineButton";
 import { Toaster } from "react-hot-toast";
 
 const Layout = ({ children,showBanner =false, ...rest }) => {
@@ -15,7 +15,7 @@ const Layout = ({ children,showBanner =false, ...rest }) => {
         <Header />
         <div className="my-0 bg-pattern">
         <Toaster position="bottom-center" />
-          {/* {showBanner && <OfflineButton />} */}
+          {showBanner && <OfflineButton />}
           {children}</div>
         <Footer />
       </div>
