@@ -13,7 +13,7 @@ const Layout = ({ children,showBanner =false, ...rest }) => {
 
       <div className="flex flex-col w-full" {...rest}>
         <Header />
-        <div className="my-0 w-min-screen bg-pattern">
+        <div className="my-0 bg-pattern">
         <Toaster position="bottom-center" />
           {showBanner && <OfflineButton />}
           {children}</div>
