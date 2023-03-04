@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { isIOS } from "react-device-detect";
 import Link from "next/link";
+import { toast, Toaster } from "react-hot-toast";
 
 const OfflineButton = () => {
   const [showInstallButton, setShowInstallButton] = useState(false);
@@ -12,13 +13,14 @@ const OfflineButton = () => {
       setShowIosButton(true);
     }
   }, []);
-
+ toast.success("showIosButton", showIosButton);
   useEffect(() => {
     const ready = (e) => {
       console.log("ready", e);
       e.preventDefault();
       console.log("ready", e);
       setDeferredPrompt(e);
+      toast.success("ready", e);
       setShowInstallButton(true);
     };
 
@@ -45,16 +47,16 @@ const OfflineButton = () => {
   };
 
   return (
-    <div className="promotionbanner bg-white w-full flex justify-center items-center text-white py-8">
+    <div className="promotionbanner bg-black w-full flex justify-center items-center text-black py-8">
+      <Toaster position="bottom-center" />
       {showInstallButton && (
         <button
-          className="bg-dynamo-blue px-2 py-1 rounded-md text-sm"
+          className="bg-white px-2 py-1 rounded-md text-sm"
           onClick={() => installApp()}
         >
           Instalar para uso offline.
         </button>
       )}
-
       {showIosButton && (
         <Link href="/ios">
           <a className="bg-dynamo-blue px-2 py-1 rounded-md text-sm">
