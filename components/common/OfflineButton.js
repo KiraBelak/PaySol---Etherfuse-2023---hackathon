@@ -32,6 +32,7 @@ const OfflineButton = () => {
 
   const installApp = () => {
     // Show the install prompt
+    console.log("installApp");
     if (deferredPrompt) {
       deferredPrompt.prompt();
       // Wait for the user to respond to the prompt
