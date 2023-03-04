@@ -13,14 +13,14 @@ const OfflineButton = () => {
       setShowIosButton(true);
     }
   }, []);
- toast.success("showIosButton", showIosButton);
+ toast.loading("falso");
   useEffect(() => {
     const ready = (e) => {
       console.log("ready", e);
       e.preventDefault();
       console.log("ready", e);
       setDeferredPrompt(e);
-      toast.success("ready", e);
+      toast.loading("ready", e);
       setShowInstallButton(true);
     };
 
@@ -59,7 +59,7 @@ const OfflineButton = () => {
       )}
       {showIosButton && (
         <Link href="/ios">
-          <a className="bg-dynamo-blue px-2 py-1 rounded-md text-sm">
+          <a className="bg-white px-2 py-1 rounded-md text-sm">
             Instalar para uso offline IOS
           </a>
         </Link>
