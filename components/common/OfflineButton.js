@@ -4,7 +4,7 @@ import Link from "next/link";
 import { toast, Toaster } from "react-hot-toast";
 
 const OfflineButton = () => {
-  const [showInstallButton, setShowInstallButton] = useState(true);
+  const [showInstallButton, setShowInstallButton] = useState(false);
   const [showIosButton, setShowIosButton] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState(null);
 
