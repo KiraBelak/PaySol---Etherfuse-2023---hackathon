@@ -4,7 +4,7 @@ import Link from "next/link";
 import { toast, Toaster } from "react-hot-toast";
 
 const OfflineButton = () => {
-  const [showInstallButton, setShowInstallButton] = useState(false);
+  const [showInstallButton, setShowInstallButton] = useState(true);
   const [showIosButton, setShowIosButton] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState(null);
 
@@ -48,7 +48,6 @@ const OfflineButton = () => {
 
   return (
     <div className="promotionbanner bg-black w-full flex justify-center items-center text-black">
-      <Toaster position="bottom-center" />
       {showInstallButton && (
         <button
           className="bg-white px-2 py-1 rounded-md text-sm"
