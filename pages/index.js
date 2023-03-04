@@ -11,10 +11,10 @@ import OfflineButton from "@/components/common/OfflineButton";
 export default function Home() {
   return (
     <MainLayout title="DemoPage" description="this is a demo page">
-       <OfflineButton />
      <div className="min-h-screen w-full flex justify-center items-center">
   <div className="mx-auto py-12 text-center">
     <div className="mb-8 min-w-screen">
+       <OfflineButton />
       <Image src={logo} alt="Paysol logo" width={250} height={250} />
       <h1 className="text-8xl left-0 font-bold text-white bg-black w-screen mt-4">Bienvenidos a Paysol</h1>
     </div>
