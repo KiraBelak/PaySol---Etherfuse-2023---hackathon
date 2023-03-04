@@ -13,7 +13,7 @@ const OfflineButton = () => {
       setShowIosButton(true);
     }
   }, []);
- toast.loading("falso");
+ console.log("falso");
   useEffect(() => {
     const ready = (e) => {
       console.log("ready", e);
@@ -47,7 +47,7 @@ const OfflineButton = () => {
   };
 
   return (
-    <div className="promotionbanner bg-black w-full flex justify-center items-center text-black py-8">
+    <div className="promotionbanner bg-black w-full flex justify-center items-center text-black">
       <Toaster position="bottom-center" />
       {showInstallButton && (
         <button
