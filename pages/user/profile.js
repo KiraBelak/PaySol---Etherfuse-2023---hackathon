@@ -89,18 +89,20 @@ export default function Caracas() {
     <span className="text-gray-700 bg-white text-sm">
       {(atem.signer)? "Envia" : "Recibe"}
     </span>
-    {console.log()}
+    
     <br />
-    <span className="text-white bg-black text-sm">
-      {atem.pubkey}
+      {users.map((user, index) => (
+    <span key={index} className="text-white bg-black">
+          {(user.address === atem.pubkey)? user.username : ""}
     </span>
+      ))}
   </div>
 ))}
 
                   </span>
                   <span className="text-black font-bold bg-white text-sm">En Tu Cuenta</span>
                   <span className="text-gray-700 font-bold mx-2 text-sm w-full max-w-full overflow-x-scroll">
-                    {JSON.stringify(item.transaction.message.accountKeys)}
+                   
                   </span>
                 </div>
               </div>
