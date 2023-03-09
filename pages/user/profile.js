@@ -72,9 +72,10 @@ export default function Caracas() {
       <div className="flex flex-col justify-center items-center h-full">
         <h1 className="text-3xl font-bold mb-2">Transacciones realizadas</h1>
         <ul className=" divide-gray-300 w-full">
-          {transactions.map((item, index) => (
+          {transactions.slice(0,30).map((item, index) => (
             <li key={index} className="py-1">
               <div className="flex flex-col items-center">
+              <fieldset>
                 <div className="flex items-center justify-center mb-2">
                   <span className="text-red-700 font-bold mr-2">
                     #{index + 1}
@@ -101,11 +102,20 @@ export default function Caracas() {
 
                   </span>
                   <span className="text-black font-bold bg-white text-sm">En Tu Cuenta</span>
-                  <span className="text-gray-700 font-bold mx-2 text-sm w-full max-w-full overflow-x-scroll">
-                   
+                  <div className="flex flex-raw">
+                  <span className="text-white text-center font-bold text- mx-2 text-sm w-full max-w-full bg-blue-700 p-2">
+                    Despues <br/>
+                    {item.meta.postBalances[0]}
                   </span>
+                  <span className="text-white bg-red-400 text-center font-bold text- mx-2 text-sm w-full max-w-full p-2">
+                    Antes <br/>
+                    {item.meta.postBalances[1]}
+                  </span>
+                  </div>
                 </div>
+            </fieldset>
               </div>
+      
             </li>
           ))}
         </ul>
