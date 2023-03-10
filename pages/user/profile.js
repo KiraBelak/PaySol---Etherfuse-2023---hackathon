@@ -63,62 +63,44 @@ export default function Caracas() {
   return (
     <MainLayout>
       <div className="flex flex-col items-center justify-center w-screen h-full">
-        <h1 className="text-5xl font-bold mb-4">Perfil</h1>
-        <div className="flex flex-col items-center justify-center rounded-lg p-8 shadow-md bg-white">
-          <p className="text-3xl mb-4">Nombre: {user.username}</p>
-          <p className="text-3xl mb-4">Solana: {soles} SOL</p>
+  <h1 className="text-4xl sm:text-8xl font-bold mb-8">Perfil</h1>
+  <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-4 rounded-lg shadow-md bg-white">
+    <div className="py-4 text-center">
+      <p className="text-2xl mb-2 font-bold text-gray-600">Nombre:</p>
+      <p className="text-3xl mb-8">{user.username}</p>
+      <p className="text-2xl mb-2 font-bold text-gray-600">Saldo Solana:</p>
+      <p className="text-3xl">{soles/1000000000} SOL</p>
+    </div>
+  </div>
+</div>
+
+      <div className="flex flex-col justify-center items-center mt-4 h-full">
+        <h1 className="text-3xl font-bold mb-2">Transacciones realizadas</h1>
+   <div className="flex flex-wrap">
+  {transactions.slice(0, 30).map((item, index) => (
+    <div key={index} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-2 h-full">
+      <div className="bg-white shadow-lg rounded-lg overflow-hidden h-full">
+        <div className="bg-[#dfd2c1] text-center text-white font-bold text-lg py-2">
+          #{index + 1}
+        </div>
+        <div className="px-4 py-2 h-full">
+          {item.transaction.message.accountKeys.slice(0, 2).map((account, index) => (
+            <div key={index} className="flex justify-between items-center mb-2">
+              <span className="text-gray-600 font-bold">{(account.signer) ? "Envía" : "Recibe"}</span>
+              <span className="text-gray-800 font-bold">{users.find(user => user.address === account.pubkey)?.username}</span>
+            </div>
+          ))}
+          <div className="flex justify-between items-center">
+            <span className="text-gray-600 font-bold">En tu cuenta</span>
+            <span className="text-gray-800 font-bold">{item.meta.postBalances[0]/1000000000}</span>
+          </div>
         </div>
       </div>
-      <div className="flex flex-col justify-center items-center h-full">
-        <h1 className="text-3xl font-bold mb-2">Transacciones realizadas</h1>
-        <ul className=" divide-gray-300 w-full">
-          {transactions.slice(0,30).map((item, index) => (
-            <li key={index} className="py-1">
-              <div className="flex flex-col items-center">
-              <fieldset>
-                <div className="flex items-center justify-center mb-2">
-                  <span className="text-red-700 font-bold mr-2">
-                    #{index + 1}
-                  </span>
-                </div>
+    </div>
+  ))}
+</div>
 
-                <div className="flex items-center flex-col justify-center w-full flex-wrap">
-                
-                  <span className="text-white font-bold mx-2 text-center text-sm w-full">
-                  {item.transaction.message.accountKeys.slice(0, 2).map((atem, index) => (
-  <div key={index}>
-    <span className="text-gray-700 bg-white text-sm">
-      {(atem.signer)? "Envia" : "Recibe"}
-    </span>
-    
-    <br />
-      {users.map((user, index) => (
-    <span key={index} className="text-white bg-black">
-          {(user.address === atem.pubkey)? user.username : ""}
-    </span>
-      ))}
-  </div>
-))}
 
-                  </span>
-                  <span className="text-black font-bold bg-white text-sm">En Tu Cuenta</span>
-                  <div className="flex flex-raw">
-                  <span className="text-white text-center font-bold text- mx-2 text-sm w-full max-w-full bg-blue-700 p-2">
-                    Despues <br/>
-                    {item.meta.postBalances[0]}
-                  </span>
-                  <span className="text-white bg-red-400 text-center font-bold text- mx-2 text-sm w-full max-w-full p-2">
-                    Antes <br/>
-                    {item.meta.postBalances[1]}
-                  </span>
-                  </div>
-                </div>
-            </fieldset>
-              </div>
-      
-            </li>
-          ))}
-        </ul>
       </div>
     </MainLayout>
   );
