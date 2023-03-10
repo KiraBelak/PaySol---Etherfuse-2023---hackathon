@@ -99,14 +99,14 @@ const Header = () => {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-40">
+                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-[#dfd2c1]  ring-2 ring-black ring-opacity-5 focus:outline-none z-50">
                       <Menu.Item>
                         {({ active }) => (
                           <Link href="/user/profile">
                             <a
                               className={classNames(
                                 active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
+                                "block px-4 py-2 text-sm text-gray-700 hover:bg-[#b7c0a5]"
                               )}
                             >
                               Mi Cuenta
@@ -120,7 +120,7 @@ const Header = () => {
                             <a
                               className={classNames(
                                 active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
+                                "block px-4 py-2 text-sm text-gray-700 hover:bg-[#b7c0a5]"
                               )}
                             >
                               Pagar
@@ -134,7 +134,7 @@ const Header = () => {
                             <a
                               className={classNames(
                                 active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
+                                "block px-4 py-2 text-sm text-gray-700 hover:bg-[#b7c0a5]"
                               )}
                             >
                               Pagos
@@ -148,7 +148,7 @@ const Header = () => {
                             <a
                               className={classNames(
                                 active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
+                                "block px-4 py-2 text-sm text-gray-700 hover:bg-[#b7c0a5]"
                               )}
                             >
                               Grupos
@@ -162,7 +162,7 @@ const Header = () => {
                             <a
                               className={classNames(
                                 active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
+                                "block px-4 py-2 text-sm text-gray-700 hover:bg-[#b7c0a5]"
                               )}
                             >
                               Enviar dinero
@@ -213,7 +213,7 @@ const Header = () => {
           className="absolute z-30 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
         >
           
-          <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
+          <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-[#dfd2c1] divide-y-2 divide-gray-800">
             
             <div className="pt-5 pb-6 px-5 sm:pb-8">
               
@@ -258,14 +258,14 @@ const Header = () => {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-40">
+                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-[#dfd2c1] ring-1 ring-black ring-opacity-5 focus:outline-none z-40">
                       <Menu.Item>
                         {({ active }) => (
                           <Link href="/user/profile">
                             <a
                               className={classNames(
                                 active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
+                                "block px-4 py-2 text-sm text-gray-700 "
                               )}
                             >
                               Mi Cuenta

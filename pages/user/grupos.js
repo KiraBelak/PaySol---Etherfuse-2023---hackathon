@@ -5,7 +5,7 @@ export default function Home() {
     <MainLayout>
       <div className="content flex justify-center items-center w-full">
         <div className="wrapper max-w-7xl">
-          <h1 className="text-2xl text-center text-[#274790] bg-gray-200 min-w-screen font-bold">
+          <h1 className="text-2xl text-center text-[#274790] bg-gray-200  font-bold">
             PaySol owo <br /> 
               <p className="sm:text-3xl text-2xl text-[#3884CF] font-medium title-font mb-2 md:w-2/5">
                 Grupos
@@ -40,6 +40,7 @@ export default function Home() {
             </div>
           </section>
         </div>
+        
       </div>
     </MainLayout>
   );
