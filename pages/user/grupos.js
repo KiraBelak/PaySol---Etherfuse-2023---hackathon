@@ -30,7 +30,7 @@ export default function Home() {
                       Añadir grupo
                     </button>
                   </a>
-                  <a href="#">
+                  <a href="/user/salida">
                     <button className="inline-flex text-[#67D29E] bg-white border-0 py-1 px-4 focus:outline-none hover:text-white hover:bg-[#67D29E] rounded">
                       Realizar salida
                     </button>

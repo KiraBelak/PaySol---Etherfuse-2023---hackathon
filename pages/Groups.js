@@ -3,11 +3,16 @@ import { getGroup, addMemberToGroup } from "@/lib/groups";
 import { useMirrorWorld } from "@/lib/useMirrorWorld";
 import { useEffect, useState } from "react";
 import { getUsers } from "@/lib/user";
+import { toast, Toaster } from "react-hot-toast";
 const logoUrl = "/logo.png";
 export default function Home() {
   const [users, setUsers] = useState([]);
   const { user } = useMirrorWorld();
   const [groups, setGroups] = useState([]);
+  const [values, setValues] = useState({});
+  const [selectedGroup, setSelectedGroup] = useState("");
+  const [selectedMember, setSelectedMember] = useState("");
+
   useEffect(() => {
     const getGroups = async () => {
       const groups = await getGroup(user.email);
@@ -25,15 +30,50 @@ export default function Home() {
     }
   }, [user]);
   async function handleAddMemberClick() {
-    const groupName = "Nombre del grupo"; // Reemplazar por el nombre del grupo correspondiente
-    const member = "Nombre del miembro"; // Reemplazar por el nombre del miembro a añadir
-    const response = await addMemberToGroup(groupName, [member]);
-    console.log(response); // Hacer algo con la respuesta
+    try {
+      const response = await addMemberToGroup(selectedGroup, [selectedMember]);
+      
+      switch (response.status) {
+        case 200:
+          toast.success("Miembro añadido");
+          break;
+        case 400:
+          toast.error("Error al añadir miembro");
+          break;
+        case 404:
+          toast.error("Error al añadir miembro");
+          break;
+          case 409:
+          toast.error("Miembro ya existe");
+          break;
+        default:
+          toast.error("Error al añadir miembro");
+          break;
+      }
+
+      console.log('response ',response);
+      
+
+    } catch (error) {
+      toast.error("Error al añadir miembro");
+      console.error(error);
+    } // Hacer algo con la respuesta
+  }
+
+
+  function handleGroupChange(e) {
+    setSelectedGroup(e.target.value);
+  }
+
+  function handleMemberChange(e) {
+    setSelectedMember(e.target.value);
   }
 
   return (
     <MainLayout>
-      <div className="content flex justify-center items-center w-full bg-[#B7C0A5]">
+     <Toaster
+  position="bottom-center"/>
+      <div className="content flex justify-center items-center w-full">
         <div className="wrapper max-w-7xl">
           <h1 className="md:text-2x1 text-xl text-center text-gray-900 font-bold">
             PaySol 
@@ -42,12 +82,12 @@ export default function Home() {
             <img className="w-24" src={logoUrl} alt="" />
             </div>
             <section className="text-gray-600 body-font ">
-              <div className="container px-10 py-12 mx-auto bg-[#B7C0A5]">
+              <div className="container px-10 py-12 mx-auto">
                 <div className="flex flex-wrap -m-3">
                   <div className="p-4 lg:w-1/3">
                     <div className="h-full bg-[#67D29E]  px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center relative">
                       <h1 className="title-font sm:text-2xl text-xl font-medium text-[#274790] mb-3">
-                        NOMBRES DE GRUPOS:{" "}
+                        NOMBRES DE GRUPOS:
                       </h1>
                       <p className="leading-relaxed mb-3">
                         En esta seccion podras consultar si tienes un grupo y te
@@ -75,43 +115,32 @@ export default function Home() {
                         <select
                           id="editar-gruposa"
                           name="concerned_GRUPOS"
+                          data-group="concerned_GRUPOS"
                           required
                           className="text-white bg-[#3884CF]"
+                          onChange={handleGroupChange}
                         >
                           <option value="billing ">Selecciona un grupo</option>
                           {groups.map((group,key) => (
-                            <option key={key} value="billing">{group.name}</option>
+                            <option key={key} value={group.name}>{group.name}</option>
                           ))}
                         </select>
                       </div>
 
-                      <div className="elem-groupb">
-                        <label htmlFor="editar-gruposb"></label>
-                        <select
-                          id="editar-gruposb"
-                          name="concerned_GRUPOS"
-                          required
-                          className="text-white bg-[#3884CF]"
-                        >
-                          <option value="">Participantes</option>
-                          <option value="billing">Kira</option>
-                          <option value="marketing">Vsher</option>
-                          <option value="marketing">Vianey</option>
-                          <option value="marketing">Gera</option>
-                        </select>
-                      </div>
-                     <div className="flex flex-col">
-                     <div className="elem-groupz">
-                        <label htmlFor="editar-gruposz"></label>
+                     
+                      <div className="flex flex-col flex-wrap max-w-sm justify-center overflow-hidden items-center">
+                     <div className="elem-groupz text-center py-3">
+                        <label htmlFor="editar-gruposz" className=""></label>
                         <select
                           id="editar-gruposz"
                           name="concerned_User"
                           required
-                          className="text-white bg-[#3884CF]"
+                          className="text-white bg-[#3884CF] flex flex-col flex-wrap text-center overflow-hidden"
+                          onChange={handleMemberChange}
                         >
                          <option value={null}>Selecciona usuario</option>
                           {users.map((user,index) => (
-                            <option key={index} className="text-white max-w-8" value="billing">{user.username}</option>
+                            <option key={index} className="text-white text-xs max-w-sm flex flex-wrap p-2 scroll-my-2" value={user.username}>{user.username}</option>
                           ))}
                         </select>
                       </div>

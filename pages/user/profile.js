@@ -44,7 +44,23 @@ export default function Caracas() {
       // await addUser(formData);
 
       const transactions = await Transaction();
-      console.log(transactions);
+      var i;
+      for (transactions,  i = 0; i < transactions.length; i++) {
+        if (user.wallet.sol_address != transactions[i].transaction.message.accountKeys[0]) {
+          transactions[i].meta.postBalances[0] = transactions[i].meta.postBalances[1];
+          transactions[i].meta.postBalances[1] = 0;
+        }
+      }
+      // if(user.wallet.sol_address != transactions[0].transaction.message.accountKeys[0]){
+      //   console.log("es el mismo");
+      //   const temp =transactions[0].meta.postBalances[0];
+      //   transactions[0].meta.postBalances[0]=transactions[0].meta.postBalances[1];
+      //   transactions[0].meta.postBalances[1]=temp;
+      //   console.log(transactions[0].meta.postBalances)
+      //   // transactions[0].transaction.message.accountKeys[0] = "Tu";
+      // }
+      // console.log(transactions);
+
       setTransactions(transactions);
     }
     fetchData();
