@@ -7,8 +7,7 @@ import { LoadingCircle } from "@/components/common/LoadingCircle";
 import { useRouter } from "next/router";
 import { Toaster, toast } from "react-hot-toast";
 
-export default function salida() {
-  const router = useRouter();
+export default function Salida() {
   const [users, setUsers] = useState([]);
   const { user } = useMirrorWorld();
   const [groups, setGroups] = useState([]);
@@ -17,6 +16,7 @@ export default function salida() {
   const [deudas, setDeudas] = useState([]);
   const axios = require('axios');
   const solanaId = '5426';
+  const router = useRouter;
 
   // URL de la API para obtener el precio de Solana en dólares estadounidenses
   const url = `https://api.coinmarketcap.com/data-api/v3/cryptocurrency/detail?id=${solanaId}`;

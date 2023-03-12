@@ -1,4 +1,5 @@
 import MainLayout from "@/components/layouts/MainLayout";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -20,21 +21,26 @@ export default function Home() {
                   ¡Vamos a echarles un vistazo!
                 </p>
                 <div className="flex md:mt-4 mt-6 justify-center">
-                  <a href="../Groups">
+                  <Link href="../Groups">
+             
                     <button className="inline-flex text-white bg-[#3884CF] border-0 py-1 px-4 focus:outline-none hover:bg-[#274790] rounded mr-4">
                       Mis grupos
                     </button>
-                  </a>
-                  <a href="../addGroups">
+
+                 
+                  
+                  </Link>
+                  <Link href="../addGroups">
                     <button className="inline-flex text-white bg-[#3884CF] border-0 py-1 px-4 focus:outline-none hover:bg-[#274790] rounded mr-4">
                       Añadir grupo
                     </button>
-                  </a>
-                  <a href="/user/salida">
+                  </Link>
+
+                  <Link href="/user/salida">
                     <button className="inline-flex text-[#67D29E] bg-white border-0 py-1 px-4 focus:outline-none hover:text-white hover:bg-[#67D29E] rounded">
                       Realizar salida
                     </button>
-                  </a>
+                    </Link>
                 </div>
               </div>
             </div>
