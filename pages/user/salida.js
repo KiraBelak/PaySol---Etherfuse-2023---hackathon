@@ -6,7 +6,7 @@ import { getUsers } from "@/lib/user";
 import { LoadingCircle } from "@/components/common/LoadingCircle";
 import { useRouter } from "next/router";
 import { Toaster, toast } from "react-hot-toast";
-
+// import { getSoles } from "../../lib/groups";
 export default function Salida() {
   const [users, setUsers] = useState([]);
   const { user } = useMirrorWorld();
@@ -14,45 +14,37 @@ export default function Salida() {
   const [member, setMember] = useState([]);
   const [selectedGroup, setSelectedGroup] = useState("");
   const [deudas, setDeudas] = useState([]);
-  const axios = require('axios');
-  const solanaId = '5426';
+  const solanaId = "5426";
   const router = useRouter;
-
-
-  const API_KEY = 'de73dba1-e291-409c-83c3-5c73a7d7bddf';
-  
- 
-  useEffect(() => {
-    fetch(`https://pro-api.coinmarketcap.com/v1/tools/price-conversion?amount=1&symbol=SOL&convert_id=2781&CMC_PRO_API_KEY=${API_KEY}`)
-      .then(response => response.json())
-      .then(data => {
-        const solanaPrice = data.data.quote[2781].price;
-        setSolanaPriceMXN(solanaPrice);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
-  
-
+  // const [soles, setSoles] = useState(0);
+   
 
   // // URL de la API para obtener el precio de Solana en dólares estadounidenses
   // const url = `https://api.coinmarketcap.com/data-api/v3/cryptocurrency/detail?id=${solanaId}`;
-  
+
   // // Realizar una solicitud GET a la API de CoinMarketCap
   // axios.get(url)
   //   .then(response => {
   //     // Obtener el precio de Solana en dólares estadounidenses
   //     console.log(response.data)
   //     const solPrice = response.data.data.price.quote.USD.price;
-      
+
   //     // Hacer algo con el precio
   //     console.log(`El precio de Solana es de $${solPrice} USD`);
   //   })
   //   .catch(error => {
   //     console.error(`Error al obtener el precio de Solana: ${error}`);
   //   });
-  
+  // useEffect(() => {
+  //   const getSoles = async () => {
+  //     const soles = await getSoles();
+  //     console.log(soles);
+  //     setSoles(soles);
+  //   };
+  //   getSoles();
+  // }, []);
+
+
   useEffect(() => {
     const getGroups = async () => {
       const groups = await getGroup(user.email);
@@ -73,7 +65,7 @@ export default function Salida() {
   const updateValue = (index, field, money) => {
     const newMember = [...member];
     newMember[index][field] = money;
-    console.log("Nuevo valor: ",newMember);
+    console.log("Nuevo valor: ", newMember);
     setMember(newMember);
   };
   //crear un array de los miembros del grupo seleccionado
@@ -86,7 +78,7 @@ export default function Salida() {
         //redirect to add member
         router.push("/Groups");
       }
-    //   crear un array de los miembros del grupo seleccionado
+      //   crear un array de los miembros del grupo seleccionado
 
       var miembros = [];
 
@@ -97,9 +89,7 @@ export default function Salida() {
         });
       });
 
-
-
-        console.log(miembros);
+      console.log(miembros);
       setMember(miembros);
     }
   }, [selectedGroup]);
@@ -115,27 +105,27 @@ export default function Salida() {
   async function handleAddMemberClick() {
     try {
       const users = member;
-      console.log("Los users son",users);
-  
+      console.log("Los users son", users);
+
       let totalMoney = 0;
       users.forEach((user) => {
         totalMoney += parseInt(user.money);
       });
-      
+
       if (totalMoney !== 0) {
         console.log(totalMoney);
         console.log("La cantidad total de dinero no coincide");
       }
-  
+
       const average = totalMoney / users.length;
-  
+
       const balances = {};
       for (const { name, money } of users) {
         balances[name] = money - average;
       }
-  
+
       console.log(balances);
-  
+
       const result = [];
       while (Object.keys(balances).length > 1) {
         const minUser = Object.keys(balances).reduce((a, b) =>
@@ -152,12 +142,9 @@ export default function Salida() {
         if (balances[minUser] === 0) delete balances[minUser];
       }
       crearValores(result);
-     for (const { from, to, amount } of result) {
-      
+      for (const { from, to, amount } of result) {
         console.log(`${to} debe ${amount} a ${from}`);
       }
-
-
 
       console.log(result);
       // Do something with the result here, like display it on the page
@@ -170,10 +157,9 @@ export default function Salida() {
   function crearValores(result) {
     setDeudas(result);
   }
-  
+
   return (
     <MainLayout>
-      
       <Toaster position="bottom-center" />
       <div className="relative">
         <select
@@ -225,13 +211,13 @@ export default function Salida() {
                 htmlFor="valor"
                 className="text-sm font-medium text-white bg-black"
               >
-                Valor:
+                Cuanto puso:
               </label>
               <input
-                 id={`valor-${key}`}
-                 name={`valor-${key}`}
+                id={`valor-${key}`}
+                name={`valor-${key}`}
                 type="number"
-                placeholder="Ingresa un valor en pesos MXN"
+                placeholder="Ingresa un valor en SOLES"
                 // value={member.money}
                 onChange={(e) => updateValue(key, "money", e.target.value)}
                 className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
@@ -257,31 +243,43 @@ export default function Salida() {
         <div></div>
       )}
 
-<div className="flex flex-col max-w-3xl:w-full items-center justify-center pt-4 space-y-4">
-
-  <div className="w-full bg-gray-100 rounded-md shadow-md justify-center">
-  {deudas.map((deuda, index) => (
-    <div key={index} className="max-w-3xl w-full rounded-md shadow-md overflow-hidden">
-      <div className={`flex items-center justify-center p-4 border-b border-gray-300 ${deuda.amount > 0 ? 'bg-red-100' : 'bg-green-100'}`}>
-        <div className="mr-4 font-semibold">{deuda.to}</div>
-        <div className="mr-4">{deuda.amount > 0 ? 'le debe a' : 'no le debe a'}</div>
-        <div className="font-semibold">{deuda.from}</div>
-        <div className="ml-auto font-semibold">{Math.abs(deuda.amount)} MXN</div>
-        <div className="ml-auto font-semibold">{Math.abs(deuda.amount)} MXN</div>
+      <div className="flex flex-col max-w-3xl:w-full items-center justify-center pt-4 space-y-4">
+        <div className="w-full bg-gray-100 rounded-md flex flex-wrap flex-col items-center shadow-md justify-center">
+          {deudas.map((deuda, index) => (
+            <div
+              key={index}
+              className="max-w-3xl flex flex-col flex-wrap justify-center items-center w-full rounded-md shadow-md overflow-hidden"
+            >
+              <div
+                className={`flex items-center flex-wrap justify-center p-4 border-b border-gray-300 ${
+                  deuda.amount > 0 ? "bg-red-100" : "bg-green-100"
+                }`}
+              >
+                <div className="m-4 font-semibold">{deuda.to}</div>
+                
+                <div className="">
+                  {deuda.amount > 0 ? "le debe a" : "no le debe a"}
+                </div>
+                <div className="font-semibold ml-2">{deuda.from}</div>
+                <div className="ml-5 sm:ml-8 mt-2 font-semibold">
+                  {Math.abs(deuda.amount)} Sol
+                </div>
+            
+              </div>
+            </div>
+          ))}
+          {deudas.length > 0 && (
+            <div className="flex justify-center p-4">
+              <button
+                onClick={handleAddMemberClick}
+                className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600"
+              >
+                Crear deuda
+              </button>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
-  ))}
-    {deudas.length > 0 && (
-      <div className="flex justify-center p-4">
-        <button onClick={handleAddMemberClick} className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600">
-          Crear deuda
-        </button>
-      </div>
-    )}
-  </div>
-</div>
-
-
     </MainLayout>
   );
 }
