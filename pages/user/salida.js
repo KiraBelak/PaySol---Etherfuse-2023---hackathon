@@ -18,22 +18,40 @@ export default function Salida() {
   const solanaId = '5426';
   const router = useRouter;
 
-  // URL de la API para obtener el precio de Solana en dólares estadounidenses
-  const url = `https://api.coinmarketcap.com/data-api/v3/cryptocurrency/detail?id=${solanaId}`;
+
+  const API_KEY = 'de73dba1-e291-409c-83c3-5c73a7d7bddf';
   
-  // Realizar una solicitud GET a la API de CoinMarketCap
-  axios.get(url)
+  axios.get('https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=SOL', {
+    headers: {
+      'X-CMC_PRO_API_KEY': API_KEY
+    }
+  })
     .then(response => {
-      // Obtener el precio de Solana en dólares estadounidenses
-      console.log(response.data)
-      const solPrice = response.data.data.price.quote.USD.price;
-      
-      // Hacer algo con el precio
-      console.log(`El precio de Solana es de $${solPrice} USD`);
+      const solanaPrice = response.data.data.SOL.quote.USD.price;
+      console.log(`The current price of Solana is ${solanaPrice} USD.`);
     })
     .catch(error => {
-      console.error(`Error al obtener el precio de Solana: ${error}`);
+      console.log(error);
     });
+  
+
+
+  // // URL de la API para obtener el precio de Solana en dólares estadounidenses
+  // const url = `https://api.coinmarketcap.com/data-api/v3/cryptocurrency/detail?id=${solanaId}`;
+  
+  // // Realizar una solicitud GET a la API de CoinMarketCap
+  // axios.get(url)
+  //   .then(response => {
+  //     // Obtener el precio de Solana en dólares estadounidenses
+  //     console.log(response.data)
+  //     const solPrice = response.data.data.price.quote.USD.price;
+      
+  //     // Hacer algo con el precio
+  //     console.log(`El precio de Solana es de $${solPrice} USD`);
+  //   })
+  //   .catch(error => {
+  //     console.error(`Error al obtener el precio de Solana: ${error}`);
+  //   });
   
   useEffect(() => {
     const getGroups = async () => {
