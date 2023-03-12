@@ -21,18 +21,18 @@ export default function Salida() {
 
   const API_KEY = 'de73dba1-e291-409c-83c3-5c73a7d7bddf';
   
-  axios.get('https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=SOL', {
-    headers: {
-      'X-CMC_PRO_API_KEY': API_KEY
-    }
-  })
-    .then(response => {
-      const solanaPrice = response.data.data.SOL.quote.USD.price;
-      console.log(`The current price of Solana is ${solanaPrice} USD.`);
-    })
-    .catch(error => {
-      console.log(error);
-    });
+ 
+  useEffect(() => {
+    fetch(`https://pro-api.coinmarketcap.com/v1/tools/price-conversion?amount=1&symbol=SOL&convert_id=2781&CMC_PRO_API_KEY=${API_KEY}`)
+      .then(response => response.json())
+      .then(data => {
+        const solanaPrice = data.data.quote[2781].price;
+        setSolanaPriceMXN(solanaPrice);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
   
 
 
