@@ -10,12 +10,15 @@ import Router, { useRouter } from 'next/router';
 
 
 export default function Gome() {
-  const { transferSOL } = useMirrorWorld();
   const [deudas, setDeudas] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { user, token, fetchUser, Transaction } = useMirrorWorld();
   const [users, setUsers] = useState([]);
+  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed2, setCollapsed2] = useState(true);
+
+
   useEffect(() => {
 
     async function fetchData() {
@@ -35,7 +38,13 @@ export default function Gome() {
     }
     fetchData();
   }, [user]);
+  function toggleCollapsed() {
+    setCollapsed(!collapsed);
+  }
 
+  function toggleCollapsed2() {
+    setCollapsed2(!collapsed2);
+  }
 
   return (
     <MainLayout>
@@ -74,52 +83,33 @@ export default function Gome() {
               </Link>
             </div>
           </div>
-          <div className="container px-4 md:px-0 mx-auto">
+          <div className="container px-4 pt-2 md:px-0 mx-auto">
             {deudas ? (
-              deudas.map((debt) => (
-                <DebtCard
-                  key={debt._id}
-                  from={debt.from}
-                  to={debt.to}
-                  amount={debt.amount}
-                  paid={debt.paid}
-                  onPayClick={() => {
-                    try {
-                      const index = users.findIndex((user) => user.username == debt.from);
-                      const cuenta= users[index].address;
-                      
-                      const res = transferSOL(cuenta, parseInt(debt.amount*1000000000))
-                      .then((resultadoTransferencia) => {
-                        console.log(resultadoTransferencia); // aquí puedes hacer algo con la información recibida, como mostrar un mensaje de éxito en la interfaz
-                        toast.dismiss();
-                        toast.success("Transferencia exitosa");
-                        const pagadeuda= paidDeuda(debt._id)
-                        //aquie va el codigo para actualizar el estado de la deuda
-                        
-                        location.reload();
-
-                      })
-                      .catch((error) => {
-                        toast.dismiss();
-                        if (error.message === "Transaction failed") {
-                          toast.error("Error al transferir");
-                        } else {
-                          toast.error("Fondos insuficientes");
-                        }
-                      });
-                          if (res) {
-                            toast.loading("Transferencia en proceso...");
-                            console.log("Transferencia en proceso");
-                          }
-                  
-                    } catch (error) {
-                      toast.dismiss();
-                      toast.error("Error al transferir");
-                      console.log("el error es",error);
-                    }
-                  }}
-                />
-              ))
+             <div className="container mx-auto">
+             <h2 className="text-xl font-bold mb-4 bg-black text-white" onClick={toggleCollapsed}>➡️Deudas NO pagadas⬅️</h2>
+             {!collapsed && deudas.filter(debt => !debt.paid).map(debt => (
+               <DebtCard
+                 key={debt._id}
+                 from={debt.from}
+                 to={debt.to}
+                 amount={debt.amount}
+                 paid={debt.paid}
+                 // ...
+               />
+             ))}
+             <h2 className="text-xl font-bold bg-green-500 text-black my-4" onClick={toggleCollapsed2}>➡️ Deudas pagadas ⬅️</h2>
+             {collapsed2 && deudas.filter(debt => debt.paid).map(debt => (
+               <DebtCard
+                 key={debt._id}
+                 from={debt.from}
+                 to={debt.to}
+                 amount={debt.amount}
+                 paid={debt.paid}
+                 // ...
+               />
+             ))}
+           </div>
+           
             ) : (
               <div className="text-black">
                 No hay deudas
