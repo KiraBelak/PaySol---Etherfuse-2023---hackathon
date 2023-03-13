@@ -80,17 +80,14 @@ export default function Users() {
             className="mt-2 ml-2 bg-blue-500 hover:bg-blue-700 text-white shadow-xl font-bold py-2 px-4 rounded"
             onClick={() => {
               try {
-                const index = users.findIndex((user) => user.username == debt.from);
-                const cuenta= users[index].address;
-            
-                const res = transferSOL(cuenta, parseInt(debt.amount*1000000000))
+                const res = transferSOL(user.address, parseInt(values[index]*1000000000)) // Transferir la cantidad de SOL ingresada en el input para esta fila
                 .then((resultadoTransferencia) => {
                   console.log(resultadoTransferencia); // aquí puedes hacer algo con la información recibida, como mostrar un mensaje de éxito en la interfaz
                   toast.dismiss();
                   toast.success("Transferencia exitosa");
-                  // setTimeout(() => {
-                  //   Router.push('/user/profile');
-                  // }, 2000);
+                  setTimeout(() => {
+                    Router.push('/user/profile');
+                  }, 2000);
                 })
                 .catch((error) => {
                   toast.dismiss();
@@ -106,9 +103,8 @@ export default function Users() {
                     }
             
               } catch (error) {
-                console.log(error);
-              }
-            }}
+          console.log(error);
+              }}}
           >
             Transferir
           </button>

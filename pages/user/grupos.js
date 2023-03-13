@@ -17,7 +17,7 @@ export default function Gome() {
   const [users, setUsers] = useState([]);
   const [collapsed, setCollapsed] = useState(false);
   const [collapsed2, setCollapsed2] = useState(true);
-
+  const {transferSOL} = useMirrorWorld();
 
   useEffect(() => {
 
@@ -94,6 +94,43 @@ export default function Gome() {
                  to={debt.to}
                  amount={debt.amount}
                  paid={debt.paid}
+                onPayClick={
+                  () => {
+                    try {
+                            const index = users.findIndex((user) => user.username == debt.from);
+                            const cuenta= users[index].address;
+                        
+                            const res = transferSOL(cuenta, parseInt(debt.amount*1000000000))
+                      .then((resultadoTransferencia) => {
+                        console.log(resultadoTransferencia); // aquí puedes hacer algo con la información recibida, como mostrar un mensaje de éxito en la interfaz
+                        toast.dismiss();
+                        toast.success("Transferencia exitosa");
+                        const pagadeuda= paidDeuda(debt._id)
+                        //aquie va el codigo para actualizar el estado de la deuda
+                        
+                        location.reload();
+
+                      })
+                      .catch((error) => {
+                        toast.dismiss();
+                        if (error.message === "Transaction failed") {
+                          toast.error("Error al transferir");
+                        } else {
+                          toast.error("Fondos insuficientes");
+                        }
+                      });
+                          if (res) {
+                            toast.loading("Transferencia en proceso...");
+                            console.log("Transferencia en proceso");
+                          }
+                  
+                    } catch (error) {
+                      toast.dismiss();
+                      toast.error("Error al transferir");
+                      console.log("el error es",error);
+                    }
+                  }}
+
                  // ...
                />
              ))}
