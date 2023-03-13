@@ -29,7 +29,8 @@ export default function CreateGroup() {
       name: formState.name,
       description: formState.description,
       category: formState.category,
-      integrants:{},
+      members:[user.username],
+        
     };
     console.log(groupData);
     addGrroup(groupData);

@@ -6,6 +6,7 @@ import { getUsers } from "@/lib/user";
 import { LoadingCircle } from "@/components/common/LoadingCircle";
 import { useRouter } from "next/router";
 import { Toaster, toast } from "react-hot-toast";
+import { addDeuda } from "../../lib/deudas";
 // import { getSoles } from "../../lib/groups";
 export default function Salida() {
   const [users, setUsers] = useState([]);
@@ -15,7 +16,7 @@ export default function Salida() {
   const [selectedGroup, setSelectedGroup] = useState("");
   const [deudas, setDeudas] = useState([]);
   const solanaId = "5426";
-  const router = useRouter;
+  const router = useRouter();
   // const [soles, setSoles] = useState(0);
    
 
@@ -109,7 +110,7 @@ export default function Salida() {
 
       let totalMoney = 0;
       users.forEach((user) => {
-        totalMoney += parseInt(user.money);
+        totalMoney += parseFloat(user.money);
       });
 
       if (totalMoney !== 0) {
@@ -135,6 +136,8 @@ export default function Salida() {
           balances[a] > balances[b] ? a : b
         );
         const amount = Math.min(Math.abs(balances[minUser]), balances[maxUser]);
+
+        console.log("amount", amount);
         balances[minUser] += amount;
         balances[maxUser] -= amount;
         result.push({ from: maxUser, to: minUser, amount });
@@ -155,7 +158,35 @@ export default function Salida() {
   }
 
   function crearValores(result) {
+    console.log("result", result);
     setDeudas(result);
+  }
+
+  async function handleCreateDebt(){
+     var deu=[];
+      //agregamos a cada deuda si se ah pagado o no
+      deudas.forEach((deuda) => {
+        deu.push({
+          from: deuda.from,
+          to: deuda.to,
+          amount: deuda.amount,
+          paid: false,
+          grupo: selectedGroup,
+          date: new Date(),
+        });
+      });
+      console.log("deuda", deu);
+
+
+
+    const response = await addDeuda(deu);
+  console.log(response);
+    if (response.status === 200 || response.status === 201) {
+      toast.success("Deudas creadas correctamente");
+      router.push("/user/grupos");
+    } else {
+      toast.error("Error al crear las deudas");
+    }
   }
 
   return (
@@ -216,8 +247,10 @@ export default function Salida() {
               <input
                 id={`valor-${key}`}
                 name={`valor-${key}`}
-                type="number"
+                type="text"
                 placeholder="Ingresa un valor en SOLES"
+                pattern="^\d{1,10}(\.\d{0,10})?$"
+
                 // value={member.money}
                 onChange={(e) => updateValue(key, "money", e.target.value)}
                 className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
@@ -271,7 +304,7 @@ export default function Salida() {
           {deudas.length > 0 && (
             <div className="flex justify-center p-4">
               <button
-                onClick={handleAddMemberClick}
+                onClick={handleCreateDebt}
                 className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600"
               >
                 Crear deuda

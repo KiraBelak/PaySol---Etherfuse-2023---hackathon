@@ -46,20 +46,12 @@ export default function Caracas() {
       const transactions = await Transaction();
       var i;
       for (transactions,  i = 0; i < transactions.length; i++) {
-        if (user.wallet.sol_address != transactions[i].transaction.message.accountKeys[0]) {
+
+        if (user.wallet.sol_address != transactions[i].transaction.message.accountKeys[0].pubkey) {
           transactions[i].meta.postBalances[0] = transactions[i].meta.postBalances[1];
-          transactions[i].meta.postBalances[1] = 0;
+        }else{
         }
       }
-      // if(user.wallet.sol_address != transactions[0].transaction.message.accountKeys[0]){
-      //   console.log("es el mismo");
-      //   const temp =transactions[0].meta.postBalances[0];
-      //   transactions[0].meta.postBalances[0]=transactions[0].meta.postBalances[1];
-      //   transactions[0].meta.postBalances[1]=temp;
-      //   console.log(transactions[0].meta.postBalances)
-      //   // transactions[0].transaction.message.accountKeys[0] = "Tu";
-      // }
-      // console.log(transactions);
 
       setTransactions(transactions);
     }
@@ -75,7 +67,8 @@ export default function Caracas() {
       </MainLayout>
     );
   }
-
+  
+  
   return (
     <MainLayout>
       <div className="flex flex-col items-center justify-center w-screen h-full">

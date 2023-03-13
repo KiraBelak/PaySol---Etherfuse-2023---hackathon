@@ -80,31 +80,31 @@ export default function Users() {
             className="mt-2 ml-2 bg-blue-500 hover:bg-blue-700 text-white shadow-xl font-bold py-2 px-4 rounded"
             onClick={() => {
               try {
-                const res = transferSOL(user.address, parseInt(values[index]*1000000000)) // Transferir la cantidad de SOL ingresada en el input para esta fila
-                .catch((error) => {
-                  console.error(error);
-                  toast.error("Error al transferir");
-                })
-                if (res) {
-                  console.log("Transferencia en proceso");
-                }
-                res.then(resultado => {
+                const index = users.findIndex((user) => user.username == debt.from);
+                const cuenta= users[index].address;
+            
+                const res = transferSOL(cuenta, parseInt(debt.amount*1000000000))
+                .then((resultadoTransferencia) => {
+                  console.log(resultadoTransferencia); // aquí puedes hacer algo con la información recibida, como mostrar un mensaje de éxito en la interfaz
                   toast.dismiss();
-                  console.log("res",resultado); // aquí puede acceder al resultado de la promesa
-                  toast.success("Transferencia completada");
-                  //esperar 5 segundos y redireccionar
-                  setTimeout(() => {
-                  Router.push('/user/profile');
-                  }, 2000);
-
-                }).catch(error => {
-                  toast.error("Error al transferir");
-                  console.log(error); // aquí puede manejar cualquier error que se haya producido durante la ejecución de la promesa
+                  toast.success("Transferencia exitosa");
+                  // setTimeout(() => {
+                  //   Router.push('/user/profile');
+                  // }, 2000);
+                })
+                .catch((error) => {
+                  toast.dismiss();
+                  if (error.message === "Transaction failed") {
+                    toast.error("Error al transferir");
+                  } else {
+                    toast.error("Fondos insuficientes");
+                  }
                 });
-                  toast.loading("Transferencia en proceso...");
-              
-                  console.log(res); // Verificar la respuesta de la función
-                  
+                    if (res) {
+                      toast.loading("Transferencia en proceso...");
+                      console.log("Transferencia en proceso");
+                    }
+            
               } catch (error) {
                 console.log(error);
               }
