@@ -4,7 +4,10 @@ import { useMirrorWorld } from "@/lib/useMirrorWorld";
 import { useEffect, useState } from "react";
 import { getUsers } from "@/lib/user";
 import { toast, Toaster } from "react-hot-toast";
+import {LoadingCircle} from "@/components/common/LoadingCircle";
+
 const logoUrl = "/logo.png";
+
 export default function Home() {
   const [users, setUsers] = useState([]);
   const { user } = useMirrorWorld();
@@ -13,7 +16,11 @@ export default function Home() {
   const [selectedGroup, setSelectedGroup] = useState("");
   const [selectedMember, setSelectedMember] = useState("");
 
+
+
+
   useEffect(() => {
+    
     const getGroups = async () => {
       const groups = await getGroup(user.email);
       const response = await getUsers();
@@ -29,6 +36,15 @@ export default function Home() {
       getGroups().then((groups) => setGroups(groups));
     }
   }, [user]);
+  if (user == null) {
+    return (
+      <MainLayout>
+        <div className="flex justify-center items-center h-full">
+          <LoadingCircle color="#000000" />
+        </div>
+      </MainLayout>
+    );
+  }
   async function handleAddMemberClick() {
     try {
       const response = await addMemberToGroup(selectedGroup, [selectedMember]);
@@ -68,6 +84,8 @@ export default function Home() {
   function handleMemberChange(e) {
     setSelectedMember(e.target.value);
   }
+  
+  
 
   return (
     <MainLayout>
@@ -85,7 +103,7 @@ export default function Home() {
   <div className="container flex flex-wrap  py-5">
     <div className="flex flex-wrap justify-center items-center">
       <div className="">
-      <div className="h-full bg-[#67D29E] rounded-lg overflow-hidden text-center flex flex-wrap justify-center items-center flex-col w-screen">
+      <div className="h-full bg-[#67D29E] rounded-lg overflow-hidden text-center flex flex-wrap justify-center items-center flex-col lg:w-full w-screen">
           <h1 className="title-font sm:text-2xl text-xl font-medium text-[#274790] mb-3">
             NOMBRES DE GRUPOS:
           </h1>
@@ -100,7 +118,7 @@ export default function Home() {
         </div>
       </div>
       <div className="">
-        <div className="h-full bg-[#67D29E] mt-4 px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center flex flex-col w-screen">
+        <div className="h-full bg-[#67D29E] mt-4 px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center lg:w-full flex flex-col w-screen">
           <h1 className="title-font sm:text-2xl text-xl font-medium text-[#274790] mb-3">
             PARTICIPANTES:{" "}
           </h1>
