@@ -4,7 +4,7 @@ import { useMirrorWorld } from "@/lib/useMirrorWorld";
 import { useEffect, useState } from "react";
 import { getUsers } from "@/lib/user";
 import { toast, Toaster } from "react-hot-toast";
-import {LoadingCircle} from "@/components/common/LoadingCircle";
+import LoadingCircle from "@/components/common/LoadingCircle";
 
 const logoUrl = "/logo.png";
 

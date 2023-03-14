@@ -3,7 +3,7 @@ import { getGroup, addMemberToGroup } from "@/lib/groups";
 import { useMirrorWorld } from "@/lib/useMirrorWorld";
 import { useEffect, useState } from "react";
 import { getUsers } from "@/lib/user";
-import { LoadingCircle } from "@/components/common/LoadingCircle";
+import LoadingCircle from "@/components/common/LoadingCircle";
 import { useRouter } from "next/router";
 import { Toaster, toast } from "react-hot-toast";
 import { addDeuda } from "../../lib/deudas";
