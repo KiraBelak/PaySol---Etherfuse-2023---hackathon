@@ -85,9 +85,11 @@ export default function Users() {
                   console.log(resultadoTransferencia); // aquí puedes hacer algo con la información recibida, como mostrar un mensaje de éxito en la interfaz
                   toast.dismiss();
                   toast.success("Transferencia exitosa");
-                  setTimeout(() => {
-                    Router.push('/user/profile');
-                  }, 2000);
+                  const pagadeuda= paidDeuda(debt._id)
+                  //aquie va el codigo para actualizar el estado de la deuda
+                  
+                  location.reload();
+
                 })
                 .catch((error) => {
                   toast.dismiss();
@@ -103,8 +105,13 @@ export default function Users() {
                     }
             
               } catch (error) {
-          console.log(error);
-              }}}
+                toast.dismiss();
+                toast.error("Error al transferir");
+                console.log("el error es",error);
+              }
+            }}
+            
+          
           >
             Transferir
           </button>
