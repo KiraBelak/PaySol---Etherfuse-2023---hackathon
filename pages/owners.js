@@ -26,9 +26,9 @@ export default function Owners() {
           </h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-10">
             {owners.map((owner) => (
-              <a href={owner.link}>
+              <a key={owner.name} href={owner.link}>
               <div
-                key={owner.name}
+                
                 className="bg-white text-black rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-all duration-300"
               >
                 
