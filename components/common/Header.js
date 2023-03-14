@@ -14,8 +14,8 @@ const logoUrl = "/logo.png";
 const navigation = {
   categories: [],
   pages: [
-    { name: "DemoPage", href: "/demo" },
-    { name: "Amigos", href: "/amigos" },
+    { name: "Desarrolladores", href: "/owners" },
+   
   ],
 };
 
