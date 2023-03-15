@@ -6,6 +6,7 @@ import { getUsers } from "@/lib/user";
 import toast, { Toaster } from "react-hot-toast";
 import Router, { useRouter } from 'next/router';
 import { setTimeout } from "timers";
+import { route } from "next/dist/server/router";
 
 
 export default function Users() {
@@ -84,11 +85,10 @@ export default function Users() {
                 .then((resultadoTransferencia) => {
                   console.log(resultadoTransferencia); // aquí puedes hacer algo con la información recibida, como mostrar un mensaje de éxito en la interfaz
                   toast.dismiss();
-                  toast.success("Transferencia exitosa");
-                  const pagadeuda= paidDeuda(debt._id)
-                  //aquie va el codigo para actualizar el estado de la deuda
-                  
-                  location.reload();
+                  toast.success("Transferencia exitosa");                  //aquie va el codigo para actualizar el estado de la deuda
+                  setTimeout(() => {
+                    Router.push('/user/profile')
+                  }, 2000);
 
                 })
                 .catch((error) => {
@@ -110,8 +110,6 @@ export default function Users() {
                 console.log("el error es",error);
               }
             }}
-            
-          
           >
             Transferir
           </button>
