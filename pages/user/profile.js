@@ -79,6 +79,8 @@ export default function Caracas() {
       <p className="text-3xl mb-8">{user.username}</p>
       <p className="text-2xl mb-2 font-bold text-gray-600">Saldo Solana:</p>
       <p className="text-3xl">{soles/1000000000} SOL</p>
+      <p className="text-2xl mb-2 font-bold text-gray-600">Wallet:</p>
+      <p className="text-sm">{user.wallet.sol_address}</p>
     </div>
   </div>
 </div>
